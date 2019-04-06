@@ -24,52 +24,101 @@ extension Marvel {
         } catch let error  {
             print(error)
         }
-
+        
         return marvel
-
+        
     }
 }
 
-struct ListOfHeroes: Decodable{
-    var heroes: [Heroes]?
-    var villains: [Villains]?
-    var teams: [Teams]?
+struct ListOfHeroes: Decodable {
+    let heroes: [Heroes]
+    let villains: [Villains]
+    let teams: [Teams]
     
-   
+    
     enum CodingKeys: String, CodingKey {
         case heroes
         case villains
         case teams
     }
+    
+}
 
+struct Heroes: Decodable {
+    var hero: String
+    var name: String
+    var link: String
+    var img: String
+    var size: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case hero
+        case name
+        case link
+        case img
+        case size
+    }
+    
     init(from decoder: Decoder) throws {
         let value = try decoder.container(keyedBy: CodingKeys.self)
+        hero = try value.decodeIfPresent(String.self, forKey: .hero)!
+        name = try value.decodeIfPresent(String.self, forKey: .name)!
+        link = try value.decodeIfPresent(String.self, forKey: .link)!
+        img = try value.decodeIfPresent(String.self, forKey: .img)!
+        size = try value.decodeIfPresent(Int.self, forKey: .size)!
         
-        heroes = try v
+    }
+}
+struct Villains: Decodable {
+    var hero: String
+    var name: String
+    var link: String
+    var img: String
+    var size: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case hero
+        case name
+        case link
+        case img
+        case size
+    }
+    
+    init(from decoder: Decoder) throws {
+        let value = try decoder.container(keyedBy: CodingKeys.self)
+        hero = try value.decodeIfPresent(String.self, forKey: .hero)!
+        name = try value.decodeIfPresent(String.self, forKey: .name)!
+        link = try value.decodeIfPresent(String.self, forKey: .link)!
+        img = try value.decodeIfPresent(String.self, forKey: .img)!
+        size = try value.decodeIfPresent(Int.self, forKey: .size)!
         
     }
 }
 
-struct Heroes {
+struct Teams: Decodable {
     var hero: String
     var name: String
     var link: String
     var img: String
     var size: Int
-}
-struct Villains {
-    var hero: String
-    var name: String
-    var link: String
-    var img: String
-    var size: Int
-}
-
-struct Teams {
-    var hero: String
-    var name: String
-    var link: String
-    var img: String
-    var size: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case hero
+        case name
+        case link
+        case img
+        case size
+    }
+    
+    
+    init(from decoder: Decoder) throws {
+        let value = try decoder.container(keyedBy: CodingKeys.self)
+        hero = try value.decodeIfPresent(String.self, forKey: .hero)!
+        name = try value.decodeIfPresent(String.self, forKey: .name)!
+        link = try value.decodeIfPresent(String.self, forKey: .link)!
+        img = try value.decodeIfPresent(String.self, forKey: .img)!
+        size = try value.decodeIfPresent(Int.self, forKey: .size)!
+        
+    }
 }
 
